@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kybinextracter", "Kybinextracter\Kybinextracter.csproj", "{F03E267D-27DE-4EE6-B93A-AEC1C9FF37F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F03E267D-27DE-4EE6-B93A-AEC1C9FF37F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03E267D-27DE-4EE6-B93A-AEC1C9FF37F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03E267D-27DE-4EE6-B93A-AEC1C9FF37F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03E267D-27DE-4EE6-B93A-AEC1C9FF37F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1FFAA15D-9E41-45E9-A889-B8EB544D7108}
+	EndGlobalSection
+EndGlobal
