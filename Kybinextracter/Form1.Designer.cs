@@ -28,22 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.fileselectbtn = new System.Windows.Forms.Button();
             this.filepathtxt = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.analyzebtn = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.extractallbtn = new System.Windows.Forms.Button();
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.offset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.size = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.offset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.extractallbtn = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.subfolderopt = new System.Windows.Forms.CheckBox();
+            this.auto_openopt = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileselectbtn
@@ -58,16 +66,20 @@
             // 
             // filepathtxt
             // 
+            this.filepathtxt.AllowDrop = true;
             this.filepathtxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.filepathtxt.Location = new System.Drawing.Point(94, 12);
             this.filepathtxt.Name = "filepathtxt";
             this.filepathtxt.Size = new System.Drawing.Size(624, 21);
             this.filepathtxt.TabIndex = 1;
+            this.filepathtxt.DragDrop += new System.Windows.Forms.DragEventHandler(this.filepathtxt_DragDrop);
+            this.filepathtxt.DragEnter += new System.Windows.Forms.DragEventHandler(this.filepathtxt_DragEnter);
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileName = "*.bin";
+            this.openFileDialog1.Filter = "Keumyoung Bin Package file|*.bin|All Files|*.*";
             // 
             // analyzebtn
             // 
@@ -94,25 +106,12 @@
             this.offset});
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(12, 100);
+            this.listView1.Location = new System.Drawing.Point(12, 150);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(706, 372);
+            this.listView1.Size = new System.Drawing.Size(706, 357);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // extractallbtn
-            // 
-            this.extractallbtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.extractallbtn.Enabled = false;
-            this.extractallbtn.Location = new System.Drawing.Point(12, 71);
-            this.extractallbtn.Name = "extractallbtn";
-            this.extractallbtn.Size = new System.Drawing.Size(706, 23);
-            this.extractallbtn.TabIndex = 4;
-            this.extractallbtn.Text = "Extract all";
-            this.extractallbtn.UseVisualStyleBackColor = true;
-            this.extractallbtn.Click += new System.EventHandler(this.extractallbtn_Click);
             // 
             // name
             // 
@@ -124,15 +123,28 @@
             this.path.Text = "Original Path";
             this.path.Width = 161;
             // 
+            // size
+            // 
+            this.size.Text = "Size";
+            this.size.Width = 110;
+            // 
             // offset
             // 
             this.offset.Text = "Offset";
             this.offset.Width = 97;
             // 
-            // size
+            // extractallbtn
             // 
-            this.size.Text = "Size";
-            this.size.Width = 110;
+            this.extractallbtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.extractallbtn.Enabled = false;
+            this.extractallbtn.Location = new System.Drawing.Point(288, 77);
+            this.extractallbtn.Name = "extractallbtn";
+            this.extractallbtn.Size = new System.Drawing.Size(430, 23);
+            this.extractallbtn.TabIndex = 4;
+            this.extractallbtn.Text = "Extract all";
+            this.extractallbtn.UseVisualStyleBackColor = true;
+            this.extractallbtn.Click += new System.EventHandler(this.extractallbtn_Click);
             // 
             // backgroundWorker1
             // 
@@ -143,7 +155,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 485);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 517);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(730, 22);
             this.statusStrip1.TabIndex = 6;
@@ -160,11 +172,69 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel1.Text = "Ready";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.auto_openopt);
+            this.groupBox1.Controls.Add(this.subfolderopt);
+            this.groupBox1.Location = new System.Drawing.Point(13, 71);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(269, 70);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Extract Options";
+            // 
+            // subfolderopt
+            // 
+            this.subfolderopt.AutoSize = true;
+            this.subfolderopt.Checked = true;
+            this.subfolderopt.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.subfolderopt.Location = new System.Drawing.Point(15, 20);
+            this.subfolderopt.Name = "subfolderopt";
+            this.subfolderopt.Size = new System.Drawing.Size(126, 16);
+            this.subfolderopt.TabIndex = 0;
+            this.subfolderopt.Text = "Create Sub Folder";
+            this.subfolderopt.UseVisualStyleBackColor = true;
+            // 
+            // auto_openopt
+            // 
+            this.auto_openopt.AutoSize = true;
+            this.auto_openopt.Checked = true;
+            this.auto_openopt.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.auto_openopt.Location = new System.Drawing.Point(15, 43);
+            this.auto_openopt.Name = "auto_openopt";
+            this.auto_openopt.Size = new System.Drawing.Size(191, 16);
+            this.auto_openopt.TabIndex = 1;
+            this.auto_openopt.Text = "Open Folder when completed";
+            this.auto_openopt.UseVisualStyleBackColor = true;
+            this.auto_openopt.CheckedChanged += new System.EventHandler(this.auto_openopt_CheckedChanged);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(289, 119);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(428, 20);
+            this.progressBar1.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Location = new System.Drawing.Point(288, 104);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(429, 13);
+            this.label1.TabIndex = 9;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 507);
+            this.ClientSize = new System.Drawing.Size(730, 539);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.extractallbtn);
             this.Controls.Add(this.listView1);
@@ -176,6 +246,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,6 +270,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox auto_openopt;
+        private System.Windows.Forms.CheckBox subfolderopt;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,6 +20,13 @@ namespace Kybinextracter
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+        }
+        public Form1(string a)
+        {
+            InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
+            filepathtxt.Text = a;
+            analyzebtn_Click(null, null);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -84,7 +92,15 @@ namespace Kybinextracter
 
         private void extractallbtn_Click(object sender, EventArgs e)
         {
-            extractallbtn.Enabled = false;            
+            extractallbtn.Enabled = false;
+            try
+            {
+                folderBrowserDialog1.SelectedPath = Path.GetDirectoryName(filepathtxt.Text);
+            }
+            catch
+            {
+
+            }
             if(folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {                
                 backgroundWorker1.RunWorkerAsync();
@@ -99,28 +115,64 @@ namespace Kybinextracter
         {
             extractallbtn.Text = "Processing...";
             toolStripProgressBar1.Maximum = filelist.Count;
+            progressBar1.Maximum = filelist.Count;
             toolStripStatusLabel1.Text = "0/" + filelist.Count.ToString();
             toolStripProgressBar1.Value = 0;
+            progressBar1.Value = 0;
+            string extpath = folderBrowserDialog1.SelectedPath;
+            if (subfolderopt.Checked)
+            {
+                Directory.CreateDirectory(folderBrowserDialog1.SelectedPath+"\\"+Path.GetFileNameWithoutExtension(filepathtxt.Text));
+                extpath = extpath +"\\"+ Path.GetFileNameWithoutExtension(filepathtxt.Text);
+            }
             int val = 0;
             foreach (string fl in filelist)
             {
                 val++;
                 toolStripStatusLabel1.Text = val+"/" + filelist.Count.ToString();
                 toolStripProgressBar1.Value = val;
+                progressBar1.Value = val;
                 string binfilename = fl.Split('?')[0];
+                string binpath = fl.Split('?')[1];
+                binpath = binpath.Substring(3, binpath.Length - 3);
+                if(binpath != "")
+                {
+                    Directory.CreateDirectory(extpath + "\\" + binpath);
+                }
                 int fileoffset = int.Parse(fl.Split('?')[2]);
                 int filesize = int.Parse(fl.Split('?')[3]);
                 BinaryReader kybinreader = new BinaryReader(File.Open(filepathtxt.Text, FileMode.Open));
-                BinaryWriter ext = new BinaryWriter(File.Create(folderBrowserDialog1.SelectedPath + "\\" + binfilename));
-                kybinreader.BaseStream.Seek(fileoffset, SeekOrigin.Begin);
-                byte[] tfile = kybinreader.ReadBytes(filesize);
-                ext.Write(tfile);
+                BinaryWriter ext = new BinaryWriter(File.Create(extpath + "\\" +binpath+"\\"+ binfilename));
+                kybinreader.BaseStream.Seek(fileoffset, SeekOrigin.Begin);              
+                label1.Text = binfilename;
+                ext.Write(kybinreader.ReadBytes(filesize));
                 kybinreader.Close();
                 ext.Close();
             }
             extractallbtn.Enabled = true;
             toolStripStatusLabel1.Text = "Completed!";
             extractallbtn.Text = "Extract all";
+            if (auto_openopt.Checked)
+            {
+                Process.Start(extpath);
+            }
+        }
+
+        private void auto_openopt_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void filepathtxt_DragDrop(object sender, DragEventArgs e)
+        {           
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            filepathtxt.Text = files[0];
+            analyzebtn_Click(null, null);
+        }
+
+        private void filepathtxt_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
     }
 }
