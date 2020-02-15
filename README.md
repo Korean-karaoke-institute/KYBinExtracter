@@ -1,2 +1,2 @@
 # KybinExtracter
- Extracter for ky bin package file
+ Extracter for kumyoung karaoke bin package file
