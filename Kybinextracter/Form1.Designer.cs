@@ -38,6 +38,8 @@
             this.path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.size = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.offset = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.extractThisFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extractallbtn = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -45,13 +47,22 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.subfolderopt = new System.Windows.Forms.CheckBox();
             this.auto_openopt = new System.Windows.Forms.CheckBox();
+            this.subfolderopt = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.property = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.value = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileselectbtn
@@ -71,7 +82,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.filepathtxt.Location = new System.Drawing.Point(94, 12);
             this.filepathtxt.Name = "filepathtxt";
-            this.filepathtxt.Size = new System.Drawing.Size(624, 21);
+            this.filepathtxt.Size = new System.Drawing.Size(689, 21);
             this.filepathtxt.TabIndex = 1;
             this.filepathtxt.DragDrop += new System.Windows.Forms.DragEventHandler(this.filepathtxt_DragDrop);
             this.filepathtxt.DragEnter += new System.Windows.Forms.DragEventHandler(this.filepathtxt_DragEnter);
@@ -87,7 +98,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.analyzebtn.Location = new System.Drawing.Point(12, 41);
             this.analyzebtn.Name = "analyzebtn";
-            this.analyzebtn.Size = new System.Drawing.Size(706, 23);
+            this.analyzebtn.Size = new System.Drawing.Size(771, 23);
             this.analyzebtn.TabIndex = 2;
             this.analyzebtn.Text = "Analyze!";
             this.analyzebtn.UseVisualStyleBackColor = true;
@@ -96,22 +107,23 @@
             // listView1
             // 
             this.listView1.AllowDrop = true;
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.name,
             this.path,
             this.size,
             this.offset});
+            this.listView1.ContextMenuStrip = this.contextMenuStrip1;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(12, 150);
+            this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(706, 357);
+            this.listView1.Size = new System.Drawing.Size(504, 380);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseClick);
             // 
             // name
             // 
@@ -133,6 +145,21 @@
             this.offset.Text = "Offset";
             this.offset.Width = 97;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.extractThisFileToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(154, 26);
+            this.contextMenuStrip1.Text = "xcvxcv";
+            // 
+            // extractThisFileToolStripMenuItem
+            // 
+            this.extractThisFileToolStripMenuItem.Name = "extractThisFileToolStripMenuItem";
+            this.extractThisFileToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.extractThisFileToolStripMenuItem.Text = "Extract this file";
+            this.extractThisFileToolStripMenuItem.Click += new System.EventHandler(this.extractThisFileToolStripMenuItem_Click);
+            // 
             // extractallbtn
             // 
             this.extractallbtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -140,7 +167,7 @@
             this.extractallbtn.Enabled = false;
             this.extractallbtn.Location = new System.Drawing.Point(288, 77);
             this.extractallbtn.Name = "extractallbtn";
-            this.extractallbtn.Size = new System.Drawing.Size(430, 23);
+            this.extractallbtn.Size = new System.Drawing.Size(495, 23);
             this.extractallbtn.TabIndex = 4;
             this.extractallbtn.Text = "Extract all";
             this.extractallbtn.UseVisualStyleBackColor = true;
@@ -155,9 +182,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 517);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 530);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(730, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(795, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -183,18 +210,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Extract Options";
             // 
-            // subfolderopt
-            // 
-            this.subfolderopt.AutoSize = true;
-            this.subfolderopt.Checked = true;
-            this.subfolderopt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.subfolderopt.Location = new System.Drawing.Point(15, 20);
-            this.subfolderopt.Name = "subfolderopt";
-            this.subfolderopt.Size = new System.Drawing.Size(126, 16);
-            this.subfolderopt.TabIndex = 0;
-            this.subfolderopt.Text = "Create Sub Folder";
-            this.subfolderopt.UseVisualStyleBackColor = true;
-            // 
             // auto_openopt
             // 
             this.auto_openopt.AutoSize = true;
@@ -208,13 +223,25 @@
             this.auto_openopt.UseVisualStyleBackColor = true;
             this.auto_openopt.CheckedChanged += new System.EventHandler(this.auto_openopt_CheckedChanged);
             // 
+            // subfolderopt
+            // 
+            this.subfolderopt.AutoSize = true;
+            this.subfolderopt.Checked = true;
+            this.subfolderopt.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.subfolderopt.Location = new System.Drawing.Point(15, 20);
+            this.subfolderopt.Name = "subfolderopt";
+            this.subfolderopt.Size = new System.Drawing.Size(126, 16);
+            this.subfolderopt.TabIndex = 0;
+            this.subfolderopt.Text = "Create Sub Folder";
+            this.subfolderopt.UseVisualStyleBackColor = true;
+            // 
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(289, 119);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(428, 20);
+            this.progressBar1.Size = new System.Drawing.Size(493, 20);
             this.progressBar1.TabIndex = 8;
             // 
             // label1
@@ -223,31 +250,79 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(288, 104);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(429, 13);
+            this.label1.Size = new System.Drawing.Size(494, 13);
             this.label1.TabIndex = 9;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(12, 147);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.listView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.listView2);
+            this.splitContainer1.Size = new System.Drawing.Size(769, 380);
+            this.splitContainer1.SplitterDistance = 504;
+            this.splitContainer1.TabIndex = 10;
+            // 
+            // listView2
+            // 
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.property,
+            this.value});
+            this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView2.HideSelection = false;
+            this.listView2.Location = new System.Drawing.Point(0, 0);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(261, 380);
+            this.listView2.TabIndex = 0;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            // 
+            // property
+            // 
+            this.property.Text = "Property";
+            this.property.Width = 104;
+            // 
+            // value
+            // 
+            this.value.Text = "Value";
+            this.value.Width = 152;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 539);
+            this.ClientSize = new System.Drawing.Size(795, 552);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.extractallbtn);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.analyzebtn);
             this.Controls.Add(this.filepathtxt);
             this.Controls.Add(this.fileselectbtn);
             this.Name = "Form1";
             this.Text = "KybinExtracter";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,6 +351,12 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem extractThisFileToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ListView listView2;
+        internal System.Windows.Forms.ColumnHeader property;
+        private System.Windows.Forms.ColumnHeader value;
     }
 }
 
